@@ -2,9 +2,10 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
+import { use } from "react"
 
 export default async function CategoryPage(params: Promise<{ slug: string }>) {
-  const { slug } = await params
+  const { slug } = use(params)
   const categoryLower = slug.toLowerCase()
   const supabase = getSupabaseServerClient()
   // Get category

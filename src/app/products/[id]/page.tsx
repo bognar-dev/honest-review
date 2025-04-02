@@ -5,9 +5,10 @@ import { Separator } from "@/components/ui/separator"
 import { notFound } from "next/navigation"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 import type { ProductWithDetails } from "@/lib/types"
+import { use } from "react"
 
 export default async function ProductPage(params: Promise<{ slug: string }>) {
-  const { slug } = await params
+  const { slug } = use(params)  
   const supabase = getSupabaseServerClient()
 
   // Get product with all related data
