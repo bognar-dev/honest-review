@@ -6,8 +6,8 @@ import { notFound } from "next/navigation"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 import type { ProductWithDetails } from "@/lib/types"
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const slug = params.id
+export default async function ProductPage(params: Promise<{ slug: string }>) {
+  const { slug } = await params
   const supabase = getSupabaseServerClient()
 
   // Get product with all related data

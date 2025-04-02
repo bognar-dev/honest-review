@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 
-export default async function CategoryPage({ params }: { params: { category: string } | Promise<{ category: string }> }) {
-  const { category } = await params
-  const categoryLower = category.toLowerCase()
+export default async function CategoryPage(params: Promise<{ slug: string }>) {
+  const { slug } = await params
+  const categoryLower = slug.toLowerCase()
   const supabase = getSupabaseServerClient()
   // Get category
   const { data: categoryData } = await supabase.from("categories").select("*").eq("slug", categoryLower).single()
