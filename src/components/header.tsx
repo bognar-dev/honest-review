@@ -16,9 +16,13 @@ export default function Header() {
             <Link href="/categories/cars" className="text-xl font-bold hover:underline underline-offset-4">
               CARS
             </Link>
-            <Button className="text-lg font-bold rounded-none border-2 border-black bg-black text-white hover:bg-white hover:text-black transition-colors">
-              SUBMIT REVIEW
+
+            <Button asChild className="text-lg font-bold rounded-none border-2 border-black bg-black text-white hover:bg-white hover:text-black transition-colors">
+              <Link href="/submit-review">
+                SUBMIT REVIEW
+              </Link>
             </Button>
+
           </nav>
         </div>
       </div>
