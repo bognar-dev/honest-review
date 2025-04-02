@@ -5,12 +5,12 @@ import { Separator } from "@/components/ui/separator"
 import { notFound } from "next/navigation"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 import type { ProductWithDetails } from "@/lib/types"
-import { use } from "react"
+type tParams = Promise<{ id: string[] }>;
 
-export default async function ProductPage(params: Promise<{ slug: string }>) {
-  const { slug } = use(params)  
+export default async function ProductPage({ params }: { params: tParams }) {
+  const { id }: {id: string[]} = await params;  
   const supabase = getSupabaseServerClient()
-
+  const slug = id[1];
   // Get product with all related data
   const { data: product } = await supabase
     .from("products")
@@ -21,7 +21,7 @@ export default async function ProductPage(params: Promise<{ slug: string }>) {
       cons:product_cons(*),
       reviews(*)
     `)
-    .eq("slug", slug)
+    .eq("slug", id)
     .single()
 
   if (!product) {
