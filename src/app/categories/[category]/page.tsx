@@ -3,12 +3,12 @@ import { ArrowRight } from "lucide-react"
 import { getSupabaseServerClient } from "@/lib/supabase/server"
 import { notFound } from "next/navigation"
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
-  const category = params.category.toLowerCase()
+export default async function CategoryPage({ params }: { params: { category: string } | Promise<{ category: string }> }) {
+  const { category } = await params
+  const categoryLower = category.toLowerCase()
   const supabase = getSupabaseServerClient()
-
   // Get category
-  const { data: categoryData } = await supabase.from("categories").select("*").eq("slug", category).single()
+  const { data: categoryData } = await supabase.from("categories").select("*").eq("slug", categoryLower).single()
 
   if (!categoryData) {
     notFound()
@@ -52,12 +52,12 @@ export default async function CategoryPage({ params }: { params: { category: str
       <section className="py-8">
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">
           {categoryData.name.toUpperCase()} REVIEWS
-        </h1>
-        <p className="text-xl md:text-2xl">
-          {category === "beauty"
+        <p className="text-xl md:text-2xl  tracking-tight">
+          {categoryLower === "beauty"
             ? "Honest reviews of skincare, makeup, haircare, and more."
             : "Honest reviews of the latest models from economy to luxury."}
         </p>
+        </h1>
       </section>
 
       <section>
