@@ -59,9 +59,10 @@ export default async function Home() {
         <h2 className="text-4xl md:text-5xl font-black mb-8">FEATURED REVIEWS</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredProducts?.map((product, index) => (
-            <div
+            <Link
+              href={`/products/${product.slug}`}
               key={product.id}
-              className={`${cardColors[index % cardColors.length]} rounded-2xl p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]`}
+              className={`${cardColors[index % cardColors.length]} rounded-2xl p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all`}
             >
               <div className="flex flex-col h-full">
                 <div className="mb-4">
@@ -74,11 +75,11 @@ export default async function Home() {
                   <div className="text-3xl font-black">{product.rating}/5</div>
                 </div>
                 <p className="mb-4">{product.summary}</p>
-                <Link href={`/products/${product.slug}`} className="mt-auto inline-flex items-center gap-2 font-bold">
+                <a className="mt-auto inline-flex items-center gap-2 font-bold">
                   READ REVIEW <ArrowRight className="h-5 w-5" />
-                </Link>
+                </a>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
